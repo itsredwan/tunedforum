@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/style/subSilver.css" type="text/css" />
+    <script type="text/javascript" src="/style/jquery.js"></script>
+    <script type="text/javascript">
+    $("#go").click(function () {
+      $("#loading_image").show("fast");
+    });
+    </script>
+  </head>
+  <body>
+    <form action="/searchResults" method="post">
+      <div style="text-align: center; padding: 2em;">
+      Search For: <input type="text" size="50" name="text"> in
+      <select name="where">
+        <option value="0">whole forum</option>
+        {% for thread in threads %}
+         <option value="{{ thread.key.id  }}">|-{{ thread.name }}</option>
+         {% for topic in thread.topics %}
+          <option value="{{ topic.key.id  }}">&nbsp;&nbsp;|-{{ topic.name }}</option>
+         {% endfor %}
+        {% endfor %}
+      </select>
+      <input type="submit" value="Search" id="go">
+      </div>
+    </form>
+    <div id="loading_image" style="text-align: center; display:none;">
+    <img src="/images/loadingAnimation.gif" alt="searching, please wait" title="searching, please wait" />
+    </div>
+  </body>
+</html>

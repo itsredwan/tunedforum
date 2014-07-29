@@ -1,0 +1,74 @@
+{% extends 'base.htm' %}
+{% block title %}{{ forum.title }}{% endblock %}
+{% block description %}{{ forum.description }}{% endblock %}
+{% block keywords %}{{ forum.description }}{% endblock %}
+
+{% block path %}
+    <table width="100%" cellspacing="2" cellpadding="2" border="0">
+    <tbody>
+     <tr>
+      <td class="nav" valign="bottom" align="left">
+       <span class="nav" style="color: rgb(255, 102, 0);">
+        <a class="nav" href="/">{{ forum.title }}</a>
+        &raquo; 
+        <a class="nav" href="">forum users</a>
+       </span>
+      </td>
+      <td valign="middle" nowrap="nowrap" align="right">
+      </td>
+     </tr>
+    </tbody>
+    </table>
+{% endblock %}
+
+{% block main %}
+<div style="position: relative; font-size: 1.4em;">
+<table class="forumline" border="0" cellpadding="1" cellspacing="1" width="100%">
+ <tbody>
+ <tr>
+  <th class="thTop" nowrap="nowrap">Login</th>
+  <th class="thTop" nowrap="nowrap">E-mail</th>
+  <th class="thTop" nowrap="nowrap">Google Talk</th>
+  <th class="thTop" nowrap="nowrap">PM (in google talk)</th>
+  <th class="thTop" nowrap="nowrap">From</th>
+  <th class="thTop" nowrap="nowrap">First Login Date</th>
+  <th class="thCornerR" nowrap="nowrap">Web Page</th>
+ </tr>
+ {% for user in users %}
+ <tr>
+  <td class="row1" align="center" nowrap="nowrap" width="15%"><span class="name"><a href="viewProfile?user={{ user.login.email }}&height=400&width=700" class="thickbox" title="{{ user.login }} profile" class="genmed" style="color: rgb(255, 163, 79);"> {{ user.login }} </a></span></td>
+  <td class="row1" align="center" valign="middle" width="5%">&nbsp;<a href="mailto:{{ user.login.email }}"><img src="/images/icon_email.gif" alt="" border="0" height="18" width="59"></a>&nbsp;</td>
+  <td class="row1" align="center" valign="middle" width="3%"><span class="gen">{% if user.googleTalkStatus %}<img src="/images/icon_online.gif" alt="Online" />{% else %}<img src="/images/icon_offline.gif" alt="Offline" />{% endif %}</span></td>
+  <td class="row1" align="center" width="5%">&nbsp;<a href="prvateMessage?jid={{ user.login.email }}&height=300&width=700" class="thickbox" title="Send Private Message"><img src="/images/icon_pm.gif" alt="" border="0" height="18" width="59"></a>&nbsp;</td>
+  <td class="row1" align="center" valign="middle" width="15%"><span class="gen">{% if user.cameFrom %}{{ user.cameFrom }}{% endif %}&nbsp;</span></td>
+  <td class="row1" align="center" nowrap="nowrap" valign="middle" width="15%"><span class="gensmall">{{ user.registrationDate|date:"d.m.Y H:i" }}</span></td>
+  <td class="row1" align="center" width="5%">{% if user.webpage %}<a href="{{ user.webpage }}" target="_blank"><img src="/images/icon_www.gif" alt="" border="0" height="18" width="59"></a>{% endif %}</td>
+ </tr>
+ {% endfor %}
+ </tbody>
+</table>
+</div>
+<table width="100%" cellspacing="2" cellpadding="2" border="0">
+ <tbody>
+ <tr>
+  <td class="nav" valign="bottom" align="left"></td>
+  <td valign="middle" nowrap="nowrap" align="right">
+   <object>
+    <div class="pagination">
+     Pages:
+     {% if prev %}<a href="/viewUsers?page={{ prev }}">&laquo;</a>{% endif %}
+      {% for i in pages %}
+      {% ifequal i page %}
+       <b>{{ i }}</b>
+      {% else %}
+       <a href="/viewUsers?page={{ i }}">{{ i }}</a>
+      {% endifequal %}
+      {% endfor %}
+     {% if next %}<a title="Next" href="/viewUsers?page={{ next }}">&raquo;</a>{% endif %}
+    </div>
+   </object>
+  </td>
+ </tr>
+ </tbody>
+</table>
+{% endblock %}

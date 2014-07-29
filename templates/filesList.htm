@@ -1,0 +1,86 @@
+{% extends 'base.htm' %}
+{% block title %}{{ forum.title }}{% endblock %}
+{% block description %}{{ forum.description }}{% endblock %}
+{% block keywords %}{{ forum.description }}{% endblock %}
+
+{% block path %}
+    <table width="100%" cellspacing="2" cellpadding="2" border="0">
+    <tbody>
+     <tr>
+      <td class="nav" valign="bottom" align="left">
+       <span class="nav" style="color: rgb(255, 102, 0);">
+        <a class="nav" href="/">{{ forum.title }}</a>
+        &raquo; 
+        <a class="nav" href="javascript:void(0)">files</a>
+       </span>
+      </td>
+      <td valign="middle" nowrap="nowrap" align="right">
+      </td>
+     </tr>
+    </tbody>
+    </table>
+{% endblock %}
+
+{% block main %}
+<div style="position: relative; font-size: 1.4em;">
+<table class="forumline" border="0" cellpadding="1" cellspacing="1" width="100%">
+ <tbody>
+ <tr>
+  <th class="thTop" nowrap="nowrap">File Type</th>
+  <th class="thTop" nowrap="nowrap">File Name</th>
+  <th class="thTop" nowrap="nowrap">Uploaded By</th>
+  <th class="thTop" nowrap="nowrap">Upload Date</th>
+  <th class="thCornerR" nowrap="nowrap">Downloads Count</th>
+ </tr>
+ {% for file in files %}
+ <tr>
+  <td class="row1" align="center" nowrap="nowrap" width="5%"><img src="/images/icon_disk.gif" alt="icon" title="icon" /></td>
+  <td class="row1" align="center" valign="middle" width="50%">&nbsp;<a href="/getFile/{{ file.key.id }}/{{ file.name }}">{{ file.name }}</a>&nbsp;</td>
+  <td class="row1" align="center" valign="middle" width="10%"><span class="gen"><a href="viewProfile?user={{ file.owner }}&height=400&width=700" class="thickbox genmed" title="{{ file.owner }}" style="color: rgb(255, 163, 79);">{{ file.owner }}</a></span></td>
+  <td class="row1" align="center" valign="middle" width="10%"><span class="gen">{{ file.date|date:"d.m.Y H:i" }}</span></td>
+  <td class="row1" align="center" width="5%">{{ file.download_count }}</td>
+ </tr>
+ {% endfor %}
+ </tbody>
+</table>
+</div>
+<table width="100%" cellspacing="2" cellpadding="2" border="0">
+ <tbody>
+ <tr>
+  <td class="nav" valign="bottom" align="left"></td>
+  <td valign="middle" nowrap="nowrap" align="right">
+   <object>
+    <div class="pagination">
+     Pages:
+     {% if prev %}<a href="/viewUsers?page={{ prev }}">&laquo;</a>{% endif %}
+      {% for i in pages %}
+      {% ifequal i page %}
+       <b>{{ i }}</b>
+      {% else %}
+       <a href="/viewUsers?page={{ i }}">{{ i }}</a>
+      {% endifequal %}
+      {% endfor %}
+     {% if next %}<a title="Next" href="/viewUsers?page={{ next }}">&raquo;</a>{% endif %}
+    </div>
+   </object>
+  </td>
+ </tr>
+ </tbody>
+</table>
+
+    <table width="100%" cellspacing="2" cellpadding="2" border="0" align="center" style="background: #ffffff;">
+    <tbody>
+     <tr>
+      <td width="40%" valign="bottom" align="left">
+      </td>
+      <td valign="bottom" align="left">
+       <form action="/filesList" enctype="multipart/form-data" method="post">
+        <input name="file" type="file">
+        <input value="Upload File" type="submit">
+       </form>
+      </td>
+      <td valign="bottom" nowrap="nowrap" align="right"></td>
+     </tr>
+    </tbody>
+    </table>
+{% endblock %}

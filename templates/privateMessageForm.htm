@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/style/subSilver.css" type="text/css" />
+  </head>
+  <body>
+    <form action="/prvateMessage" method="post">
+      <div style="text-align: center; padding: 2em;">
+      To ( JID ): <input type="text" size="50" name="jid" value="{{ jid }}">
+      <br/>
+      <br/>
+      <br />
+      --------------- Message Body ---------------
+      <br />
+      <textarea name="body" rows="5" cols="80" class="post"></textarea>
+      <br/>
+      <input type="submit" value="Send Message">
+      <br/>
+      <p>Message will be delivered with Google Talk</p>
+      </div>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+{% extends 'base.htm' %}
+{% block title %}{{ forum.title }} : {{ topic.thread.name }} : {{ topic.name }}{% endblock %}
+{% block description %}{{ forum.description }}{% endblock %}
+{% block keywords %}{{ forum.description }}{% endblock %}
+
+{% block path %}
+    <table width="100%" cellspacing="2" cellpadding="2" border="0">
+    <tbody>
+     <tr>
+      <td class="nav" valign="bottom" align="left">
+       <span class="nav" style="color: rgb(255, 102, 0);">
+        <a class="nav" href="/">{{ forum.title }}</a>
+        &raquo; 
+        <a class="nav" href="/viewThread?id={{ topic.thread.key.id }}">{{ topic.thread.name }}</a>
+        &raquo; 
+        <a class="nav" href="/view?id={{ topic.key.id }}">{{ topic.name }}</a>
+        &raquo; 
+        <a class="nav" href="javascript:void(0);">Post Edit</a>
+       </span>
+      </td>
+      <td valign="middle" nowrap="nowrap" align="right">
+       <object>
+        <div class="pagination"></div>
+       </object>
+      </td>
+     </tr>
+    </tbody>
+    </table>
+{% endblock %}
+
+{% block main%}
+
+    <table class="forumline" width="100%" cellspacing="1" cellpadding="0" border="0">
+    <tbody>
+     <tr>
+      <th class="thHead" height="25">
+      <b>Edit Post:</b>
+      </th>
+     </tr>
+     <tr style="background: #ffffff;">
+      <td>
+        <!-- pasek narzêdzi -->
+       <form action="editPost" method="post">
+        <div style="text-align: center;">
+        <a href="http://en.wikipedia.org/wiki/BBCode" target="_blank" style="color: orange; font-size: 1.5em;">BB Code allowed</a><br />
+        <div style="text-align: center;">
+        <table style="width: 300px; margin: auto;">
+	<tbody>
+         <tr>
+          <td><span class="genmed">
+           <input id="bb_b" class="button" accesskey="b" value=" B " style="font-weight: bold; width: 30px;" type="button">
+           <input id="bb_i" class="button" accesskey="i" value=" i " style="font-style: italic; width: 30px;" type="button">
+           <input id="bb_u" class="button" accesskey="u" value=" u " style="text-decoration: underline; width: 30px;" type="button">
+           <input id="bb_quote" class="button" accesskey="q" value="Quote" style="width: 50px;" type="button">
+           <input id="bb_code" class="button" accesskey="c" value="Code" style="width: 40px; text-indent: -2px;" type="button">
+           <!--<input class="button" accesskey="l" value="List" style="width: 40px;" onclick="bbstyle(10)" type="button">-->
+           <input id="bb_img" class="button" accesskey="p" value="Img" style="width: 40px;" type="button">
+           <input id="bb_url" class="button" accesskey="w" value="URL" style="text-decoration: underline; width: 40px;" type="button">
+	   <!--<input class="button" accesskey="y" value=" Center " style="width: 60px;" onclick="bbstyle(26)" onmouseover="helpline('y')" type="button">
+           <input class="button" accesskey="e" value="Fade" style="width: 40px; text-indent: -2px;" type="button">
+           <input class="button" accesskey="k" value="Scroll" style="width: 40px; text-indent: -2px;" type="button">
+           <input class="button" accesskey="h" value="Hide" style="width: 40px;" onclick="bbstyle(28)" type="button">-->
+          </span></td>
+         </tr>
+        </tbody>
+        </table>
+        </div>
+        <textarea name="body" id="body" rows="20" cols="200" class="post">{{ body }}</textarea>
+        </div>
+	<input type="hidden" name="post_id" value="{{ post.key.id }}">
+        <input type="hidden" name="id" value="{{ topic.key.id }}">
+        <input type="hidden" name="page" value="{{ page }}">
+        <div style="text-align: center;">
+         <input name="addpost" type="submit" class="button" value="Save" />
+        </div>
+       </form>
+       <br/>
+      </td>
+     </tr>
+    </tbody>
+    </table>
+    
+{% endblock%}
