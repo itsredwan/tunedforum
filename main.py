@@ -76,15 +76,15 @@ class AclUser:
   
   def createUrl(self, uri):
     if self.user is not None:
-      return users.CreateLogoutURL(uri)
-    else:
       return users.CreateLoginURL(uri)
+    else:
+      return users.CreateLogoutURL(uri)
       
   def createLink(self):
     if self.user is not None:
-      return 'Sign Out'
-    else:
       return 'Sign In'
+    else:
+      return 'Sign Out'
   
   def getNickname(self):
     return self.__nickname
